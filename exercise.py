@@ -51,5 +51,29 @@ plt.plot(ball_x-0.1, ball_y0,'-ko')
 plt.hlines(0, -0.2, 0.2, colors='k',lw = 10)
 
 
+#strain = delta L/L
+#celing = ball_y[0]
+"""
+y1 = ball_y[1]
+y2 =ball_y[2]
 
+y1_0 = ball_y0[1]
+y2_0 = ball_y0[2]
+#y3 = ball_y[3]
+#y4 =ball_y[4]
+d_12 = abs(y2-y1)
+d_12_0 = abs(y2_0 - y1_0)
+strain = (d_12 - d_12_0)/d_12_0
+"""
+
+d_0 = abs(ball_y0[1:5] - ball_y0[0:4])
+d_final = abs(ball_y[1:5] - ball_y[0:4])
+strain = (d_final - d_0)/d_0
+fig = plt.figure( dpi = 100 )
+fig.set_size_inches(6,4)
+Spring_ID = [1,2,3,4]
+plt.plot(Spring_ID,strain,'bo')
+plt.xticks(Spring_ID, (r'$spring_{01}$', r'$spring_{12}$', r'$spring_{23}$', r'$spring_{34}$'))
+plt.ylabel(r'$\epsilon$', fontsize = 20)
+#plt.xticks(Spring_ID,('a','b','c','d'))
 
