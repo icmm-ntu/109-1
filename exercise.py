@@ -1,7 +1,7 @@
 import numpy as np
 #==== Springs ===
 k_01 = 1. #N/meter
-k_12 = 2. #N/meter
+k_12 = 20. #N/meter
 k_23 = 1. #N/meter
 k_34 = 1. #N/meter
 l_01 = 1 #meters
@@ -9,7 +9,7 @@ l_12 = 1 #meters
 l_23 = 1 #meters
 l_34 = 1 #meters
 #====Mass ===
-m_1 = 0.01 #kg
+m_1 = 0.01*10 #kg
 m_2 = 0.01 #kg
 m_3 = 0.01 #kg
 m_4 = 0.01 #kg
@@ -33,4 +33,23 @@ print b_vec
 # Find y 
 Sol = np.linalg.solve(A,b_vec)
 print Sol
+
+
+import matplotlib.pyplot as plt
+fig = plt.figure( dpi = 100 )
+fig.set_size_inches(4,6)
+
+#=====
+ceiling_y = 0
+y1,y2,y3,y4 = -Sol
+#=====
+ball_x = np.array([0,0,0,0,0])
+ball_y = np.array([ceiling_y,y1,y2,y3,y4])
+ball_y0 = np.array([0,-1,-2,-3,-4])
+plt.plot(ball_x+0.1, ball_y,'-ro')
+plt.plot(ball_x-0.1, ball_y0,'-ko')
+plt.hlines(0, -0.2, 0.2, colors='k',lw = 10)
+
+
+
 
