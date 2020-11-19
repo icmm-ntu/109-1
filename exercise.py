@@ -1,15 +1,16 @@
 import numpy as np
 #==== Springs ===
 k_01 = 1. #N/meter
-k_12 = 20. #N/meter
-k_23 = 1. #N/meter
+k_12 = 2. #N/meter
+k_23 = 3. #N/meter
 k_34 = 1. #N/meter
+
 l_01 = 1 #meters
 l_12 = 1 #meters
 l_23 = 1 #meters
 l_34 = 1 #meters
 #====Mass ===
-m_1 = 0.01*10 #kg
+m_1 = 0.01 #kg
 m_2 = 0.01 #kg
 m_3 = 0.01 #kg
 m_4 = 0.01 #kg
@@ -69,11 +70,32 @@ strain = (d_12 - d_12_0)/d_12_0
 d_0 = abs(ball_y0[1:5] - ball_y0[0:4])
 d_final = abs(ball_y[1:5] - ball_y[0:4])
 strain = (d_final - d_0)/d_0
+k_vec = np.array([k_01, k_12, k_23, k_34])
+stress = k_vec * strain
+
+
 fig = plt.figure( dpi = 100 )
 fig.set_size_inches(6,4)
 Spring_ID = [1,2,3,4]
-plt.plot(Spring_ID,strain,'bo')
+
+#=====
+ax1 = plt.subplot(211) # top
+ax2 = plt.subplot(212) #bottom
+
+#=====
+ax1.plot(Spring_ID,strain,'ro')
+ax1.set_ylabel(r'$\epsilon$')
+ax1.set_ylim(0,1)
+ax1.set_xlim(0,5)
+#=====
+ax2.plot(Spring_ID,stress,'b^')
+ax2.set_ylabel(r'$\sigma$')
+ax2.set_ylim(0,1)
+ax2.set_xlim(0,5)
+#====
+
 plt.xticks(Spring_ID, (r'$spring_{01}$', r'$spring_{12}$', r'$spring_{23}$', r'$spring_{34}$'))
-plt.ylabel(r'$\epsilon$', fontsize = 20)
-#plt.xticks(Spring_ID,('a','b','c','d'))
+
+ax1.get_shared_x_axes().join(ax1, ax2)
+ax1.set_xticklabels([])
 
