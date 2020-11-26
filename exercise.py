@@ -39,6 +39,26 @@ b[10] = T_high
 print b
 # solving AT = b
 #=====
+
+fig = plt.figure( dpi = 100 ) # dots per inch
+fig.set_size_inches(6,4)
 T_arr = np.linalg.solve(A,b)
-plt.plot(T_arr, x_arr,'b*-',label = "Numerical Solution")
+#plt.plot(x_arr,T_arr, 'b*',label = "Numerical Solution")
+#plt.xlabel(r'$x$',fontsize = 20)
+#plt.ylabel(r'$T$', fontsize = 20)
 #=====
+y_arr = np.zeros(11)
+
+
+plt.scatter(x_arr, y_arr, c = T_arr, cmap='jet', s = 20)
+
+plt.clim(0,50)
+clb = plt.colorbar()
+plt.axis('off')
+
+
+
+
+
+
+ 
