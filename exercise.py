@@ -1,43 +1,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-#(a)
+# Q1a, beta = 0, perfectly insulated
 
-x = 0.1
-f_prime = np.cos(x)
-print f_prime
-# (b) FD 
-h = 0.01
+T_air, T_low, T_high = 30.0, 0.0, 50.0  # degrees
+alpha = 1. # m^2/s
+beta = 0. # 1/s
+Lx = 1. # meter
 
-f_a =np.sin(x + h)
-f_b = np.sin(x)
-f_prime_FD = (f_a - f_b)/h
-print f_prime_FD
+x_arr = np.linspace(0,Lx,11)
 
-# (c)
-#=======
+T_arr = 50. * x_arr 
 
-#---
-def FD_Diff(h,x_0):
-    f_a = np.sin(x_0 + h)
-    f_b = np.sin(x_0)
-    ans = 1./h * (f_a - f_b)
-    return ans
-
-
-n_arr = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13])
-h_arr = 10.** np.array(-n_arr) #...
-f_prime_FD = FD_Diff(h_arr,0.1)
-
-
-Delta = abs(f_prime_FD - f_prime)
-fig = plt.figure(dpi = 100)
+fig = plt.figure( dpi = 100 ) # dots per inch
 fig.set_size_inches(6,4)
 
-plt.plot(h_arr, Delta, '-or')
-plt.xlabel('h')
-plt.ylabel('error')
-plt.xscale('log')
-plt.yscale('log')
-
-
+plt.plot(x_arr, T_arr,'-b*',label = 'Analytic Solution, beta =0')
+plt.xlabel(r'$x$',fontsize = 20)
+plt.ylabel(r'$T$', fontsize = 20)
