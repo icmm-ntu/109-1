@@ -1,44 +1,31 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-# Q1a, beta = 0, perfectly insulated
-
 T_air, T_low, T_high = 30.0, 0.0, 50.0  # degrees
 alpha = 1. # m^2/s
 beta = 0. # 1/s
 Lx = 1. # meter
 
 x_arr = np.linspace(0,Lx,11)
+#=== initialize A and b, all zeros
+A = np.zeros([11,11]) 
+b = np.zeros(11)
 
-"""
-T_arr = 50. * x_arr 
 
-fig = plt.figure( dpi = 100 ) # dots per inch
-fig.set_size_inches(6,4)
 
-plt.plot(x_arr, T_arr,'-b*',label = 'Analytic Solution, beta =0')
-plt.xlabel(r'$x$',fontsize = 20)
-plt.ylabel(r'$T$', fontsize = 20)
+for i in range(1, 10):
+    for j in range(1,10):
+        if i == j:
+            A[i,j] = -2.
+        elif j == i+1: # non-zero off-diagonals, upper part
+            A[i,j] = 1.
+        elif j == i-1: # non-zero off-diagonals, lower part
+            A[i,j] = 1.
 
-"""
-#=====Q2a
-beta = 9. # 1/s
-beta_prime = beta / alpha
 
-# solving Au = b
-
-#A = np.array([[1.,1],[np.exp(3), np.exp(-3.)]])
-A = np.array([[1.,1],[np.exp(beta_prime**0.5), np.exp(-beta_prime**0.5)]])
-
+#===== Boundary Conditions =====            
+# Boundary Conditions for A
+A[0,0]  = 1
+A[1,0] = 1
+A[9,10] = 1
+A[10,10] =1
 print A
-
-#b = np.array([-30, 20. ])
-b = np.array([T_low - T_air, T_high - T_air])
-C,D = np.linalg.solve(A,b)
-print C, D
-
-temp = np.exp(beta_prime**0.5 * x_arr)
-temp2 = np.exp(-beta_prime**0.5 * x_arr)
-T_arr = C * temp + D * temp2 + T_air
-
-plt.plot(x_arr, T_arr,'-r*',label = 'Analytic Solution, beta = 9')
