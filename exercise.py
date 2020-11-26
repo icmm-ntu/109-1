@@ -29,3 +29,15 @@ A[1,0] = 1
 A[9,10] = 1
 A[10,10] =1
 print A
+
+#=====
+# Boundary Conditions for b
+b[0] = T_low
+b[10] = T_high
+print b
+# solving AT = b
+#=====
+T_arr = np.linalg.solve(A,b)
+
+
+plt.plot(T_arr, x_arr,'b*-',label = "Numerical Solution")
