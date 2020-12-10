@@ -37,3 +37,24 @@ for n in range(0,9):
         #f_n_i = alpha * (T_left + T_right - 2. * T_i)/hx**2
         f_n_i = alpha * (T_Data[n,i-1] + T_Data[n, i+1] - 2. * T_Data[n,i])/h_x**2.
         T_Data[n+1, i] = T_Data[n,i] + h_t * f_n_i
+
+        
+        
+        
+        #===== Plotting =====
+fig = plt.figure( dpi = 150 ) # dots per inch
+fig.set_size_inches(6,4)
+PI = np.pi 
+n_list = [0,1,2,3,4,5,6,7,8,9]
+for n in n_list:
+    t_n = h_t * n
+    T_analytic = 10.* np.sin(PI * x_arr )* np.exp(-PI**2 * t_n) + 50.
+    plt.plot(x_arr, T_analytic , '-',  label = 'time = %.2f sec'%(t_n))
+    plt.plot(x_arr, T_Data[n,:] , '--')
+
+plt.xlim(0,1)
+plt.ylim(30,45)
+plt.xlabel(r'$x\; \rm (m)$')
+plt.ylabel(r'$T\; \rm ( ^\circ C)$')
+plt.legend(loc="upper left")
+plt.tight_layout()
